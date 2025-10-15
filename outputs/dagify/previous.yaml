@@ -1,7 +1,18 @@
 dag_type: plain_text
-description: Create a holistic platform for health and wellness
-name: build_life_os
+description: This workflow generates a comprehensive life operating system with the
+  added feature of auto-ordering groceries based on individual needs and preferences.
+name: build_life_os_with_auto_grocery_ordering
 nodes:
+  auto_order_groceries:
+    agent: false
+    description: Add a feature to automatically order groceries for the user
+    name: auto_order_groceries
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    - develop_nutrition_planner
+    nodes_dependent_on: []
+    prompt: Automate the ordering of groceries based on the user's meal plan and dietary
+      preferences
   build_supplement_database:
     agent: false
     description: Create a database of supplements, including information on their
@@ -9,7 +20,10 @@ nodes:
     name: build_supplement_database
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - integrate_data_from_all_sources
+    - generate_summary_reports
+    - provide_recommendations
     prompt: Develop a comprehensive supplement database with information on ingredients,
       benefits, and potential interactions
   create_meditation_coach:
@@ -19,7 +33,9 @@ nodes:
     name: create_meditation_coach
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - integrate_data_from_all_sources
+    - generate_summary_reports
     prompt: Design a meditation coach with guided sessions, mood tracking, and personalized
       recommendations
   define_life_os_core_objectives:
@@ -27,7 +43,14 @@ nodes:
     description: Define the primary goals for the LIFE OS platform
     name: define_life_os_core_objectives
     nodes_depended_on: []
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - build_supplement_database
+    - create_meditation_coach
+    - design_physical_activity_tracker
+    - develop_community_forum
+    - develop_nutrition_planner
+    - establish_sleep_tracker
+    - auto_order_groceries
     prompt: List 5 high-level objectives for the LIFE OS project
   design_physical_activity_tracker:
     agent: false
@@ -35,7 +58,9 @@ nodes:
     name: design_physical_activity_tracker
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - integrate_data_from_all_sources
+    - generate_summary_reports
     prompt: Create a physical activity tracker with GPS tracking, heart rate monitoring,
       and step counting
   develop_community_forum:
@@ -55,7 +80,11 @@ nodes:
     name: develop_nutrition_planner
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - integrate_data_from_all_sources
+    - generate_summary_reports
+    - provide_recommendations
+    - auto_order_groceries
     prompt: Create a personalized nutrition planning tool with meal planning and grocery
       shopping integration
   establish_sleep_tracker:
@@ -64,7 +93,9 @@ nodes:
     name: establish_sleep_tracker
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - integrate_data_from_all_sources
+    - generate_summary_reports
     prompt: Design a sleep tracking system with integrated data analytics
   generate_summary_reports:
     agent: false
@@ -91,7 +122,8 @@ nodes:
     - build_supplement_database
     - design_physical_activity_tracker
     - create_meditation_coach
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - provide_recommendations
     prompt: Integrate data from all previous steps into a centralized platform
   provide_recommendations:
     agent: false
@@ -101,6 +133,7 @@ nodes:
     - integrate_data_from_all_sources
     - develop_nutrition_planner
     - build_supplement_database
-    nodes_dependent_on: []
+    nodes_dependent_on:
+    - generate_summary_reports
     prompt: Provide personalized recommendations for nutrition, supplements, and physical
       activity based on integrated user data
