@@ -1,6 +1,5 @@
-dag_type: plain_text
-description: This workflow generates a comprehensive life operating system with the
-  added feature of auto-ordering groceries based on individual needs and preferences.
+dag_type: typed
+description: Generated workflow from UI.
 name: build_life_os_with_auto_grocery_ordering
 nodes:
   auto_order_groceries:
@@ -11,6 +10,19 @@ nodes:
     - define_life_os_core_objectives
     - develop_nutrition_planner
     nodes_dependent_on: []
+    output_structure:
+    - description: List of grocery items to be ordered
+      key: grocery_list
+      type: List[str]
+    - description: Status of the grocery order (e.g., 'pending', 'completed', 'failed')
+      key: order_status
+      type: str
+    - description: Total cost of the grocery order
+      key: total_cost
+      type: float
+    - description: Whether the grocery order was successfully placed
+      key: is_order_successful
+      type: bool
     prompt: Automate the ordering of groceries based on the user's meal plan and dietary
       preferences
   build_supplement_database:
@@ -20,10 +32,23 @@ nodes:
     name: build_supplement_database
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on:
-    - integrate_data_from_all_sources
-    - generate_summary_reports
-    - provide_recommendations
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of names of the supplements in the database
+      key: supplement_names
+      type: List[str]
+    - description: List of ingredients for each supplement
+      key: ingredients
+      type: List[str]
+    - description: List of benefits for each supplement
+      key: benefits
+      type: List[str]
+    - description: List of potential interactions for each supplement
+      key: potential_interactions
+      type: List[str]
+    - description: The number of supplements in the database
+      key: database_size
+      type: int
     prompt: Develop a comprehensive supplement database with information on ingredients,
       benefits, and potential interactions
   create_meditation_coach:
@@ -33,9 +58,23 @@ nodes:
     name: create_meditation_coach
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on:
-    - integrate_data_from_all_sources
-    - generate_summary_reports
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of guided meditation sessions
+      key: meditation_sessions
+      type: List[str]
+    - description: List of user progress metrics, ranging from 0 to 1
+      key: user_progress
+      type: List[float]
+    - description: List of user mood tracking data
+      key: mood_tracking_data
+      type: List[str]
+    - description: List of personalized meditation recommendations
+      key: personalized_recommendations
+      type: List[str]
+    - description: Whether the meditation coach has been initialized
+      key: is_initialized
+      type: bool
     prompt: Design a meditation coach with guided sessions, mood tracking, and personalized
       recommendations
   define_life_os_core_objectives:
@@ -43,14 +82,11 @@ nodes:
     description: Define the primary goals for the LIFE OS platform
     name: define_life_os_core_objectives
     nodes_depended_on: []
-    nodes_dependent_on:
-    - build_supplement_database
-    - create_meditation_coach
-    - design_physical_activity_tracker
-    - develop_community_forum
-    - develop_nutrition_planner
-    - establish_sleep_tracker
-    - auto_order_groceries
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of 5 high-level objectives for the LIFE OS project
+      key: life_os_core_objectives
+      type: List[str]
     prompt: List 5 high-level objectives for the LIFE OS project
   design_physical_activity_tracker:
     agent: false
@@ -58,9 +94,23 @@ nodes:
     name: design_physical_activity_tracker
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on:
-    - integrate_data_from_all_sources
-    - generate_summary_reports
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of physical activity metrics (e.g., steps, distance, calories)
+      key: user_physical_activity_data
+      type: List[float]
+    - description: List of activity types (e.g., walking, running, cycling)
+      key: activity_types
+      type: List[str]
+    - description: List of heart rate values
+      key: heart_rate_data
+      type: List[int]
+    - description: Whether the user has reached their physical activity goal
+      key: is_goal_reached
+      type: bool
+    - description: List of personalized recommendations for increasing physical activity
+      key: recommendations
+      type: List[str]
     prompt: Create a physical activity tracker with GPS tracking, heart rate monitoring,
       and step counting
   develop_community_forum:
@@ -71,6 +121,19 @@ nodes:
     nodes_depended_on:
     - define_life_os_core_objectives
     nodes_dependent_on: []
+    output_structure:
+    - description: The name of the developed community forum
+      key: forum_name
+      type: str
+    - description: The number of topics available in the forum
+      key: number_of_topics
+      type: int
+    - description: The number of users registered in the forum
+      key: number_of_users
+      type: int
+    - description: Whether the forum is currently active
+      key: is_active
+      type: bool
     prompt: Create a community forum for users to share experiences, ask questions,
       and connect with others
   develop_nutrition_planner:
@@ -80,11 +143,23 @@ nodes:
     name: develop_nutrition_planner
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on:
-    - integrate_data_from_all_sources
-    - generate_summary_reports
-    - provide_recommendations
-    - auto_order_groceries
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of recommended meals for a specified period
+      key: meal_plan
+      type: List[str]
+    - description: Text-based dietary recommendations
+      key: dietary_recommendations
+      type: str
+    - description: List of grocery items needed for the meal plan
+      key: grocery_list
+      type: List[str]
+    - description: Nutritional information for the meal plan
+      key: nutritional_info
+      type: str
+    - description: Whether the generated meal plan is valid and feasible
+      key: is_plan_valid
+      type: bool
     prompt: Create a personalized nutrition planning tool with meal planning and grocery
       shopping integration
   establish_sleep_tracker:
@@ -93,9 +168,22 @@ nodes:
     name: establish_sleep_tracker
     nodes_depended_on:
     - define_life_os_core_objectives
-    nodes_dependent_on:
-    - integrate_data_from_all_sources
-    - generate_summary_reports
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of user sleep patterns, including duration, quality, and stages
+        of sleep
+      key: sleep_pattern_data
+      type: List[str]
+    - description: Summary of analysis results for user sleep patterns
+      key: analysis_results
+      type: str
+    - description: Whether the collected sleep data is valid and usable for further
+        analysis
+      key: is_data_valid
+      type: bool
+    - description: User's sleep efficiency, represented as a value between 0 and 1
+      key: sleep_efficiency
+      type: float
     prompt: Design a sleep tracking system with integrated data analytics
   generate_summary_reports:
     agent: false
@@ -109,6 +197,34 @@ nodes:
     - create_meditation_coach
     - provide_recommendations
     nodes_dependent_on: []
+    output_structure:
+    - description: Unique identifier for the report
+      key: report_id
+      type: int
+    - description: Unique identifier for the user
+      key: user_id
+      type: int
+    - description: Summary of user's sleep patterns
+      key: sleep_summary
+      type: str
+    - description: Summary of user's nutrition and meal planning
+      key: nutrition_summary
+      type: str
+    - description: Summary of user's supplement usage
+      key: supplement_summary
+      type: str
+    - description: Summary of user's physical activity
+      key: physical_activity_summary
+      type: str
+    - description: Summary of user's meditation practice
+      key: meditation_summary
+      type: str
+    - description: List of personalized recommendations for the user
+      key: recommendations
+      type: List[str]
+    - description: Date the report was generated
+      key: report_date
+      type: str
     prompt: Create summary reports of user progress, including sleep, nutrition, supplements,
       physical activity, and meditation
   integrate_data_from_all_sources:
@@ -122,8 +238,27 @@ nodes:
     - build_supplement_database
     - design_physical_activity_tracker
     - create_meditation_coach
-    nodes_dependent_on:
-    - provide_recommendations
+    nodes_dependent_on: []
+    output_structure:
+    - description: Whether sleep data has been successfully integrated
+      key: sleep_data_integrated
+      type: bool
+    - description: Whether nutrition data has been successfully integrated
+      key: nutrition_data_integrated
+      type: bool
+    - description: Whether supplement data has been successfully integrated
+      key: supplement_data_integrated
+      type: bool
+    - description: Whether physical activity data has been successfully integrated
+      key: physical_activity_data_integrated
+      type: bool
+    - description: Whether meditation data has been successfully integrated
+      key: meditation_data_integrated
+      type: bool
+    - description: Overall status of the integration process (e.g., 'success', 'partial',
+        'failure')
+      key: integration_status
+      type: str
     prompt: Integrate data from all previous steps into a centralized platform
   provide_recommendations:
     agent: false
@@ -133,7 +268,19 @@ nodes:
     - integrate_data_from_all_sources
     - develop_nutrition_planner
     - build_supplement_database
-    nodes_dependent_on:
-    - generate_summary_reports
+    nodes_dependent_on: []
+    output_structure:
+    - description: List of personalized nutrition recommendations
+      key: nutrition_recommendations
+      type: List[str]
+    - description: List of personalized supplement recommendations
+      key: supplement_recommendations
+      type: List[str]
+    - description: List of personalized physical activity recommendations
+      key: physical_activity_recommendations
+      type: List[str]
+    - description: List of confidence scores for each recommendation (0.0 to 1.0)
+      key: recommendation_confidence_scores
+      type: List[float]
     prompt: Provide personalized recommendations for nutrition, supplements, and physical
       activity based on integrated user data
