@@ -1,0 +1,106 @@
+dag_type: plain_text
+description: Create a holistic platform for health and wellness
+name: build_life_os
+nodes:
+  build_supplement_database:
+    agent: false
+    description: Create a database of supplements, including information on their
+      ingredients and potential interactions
+    name: build_supplement_database
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Develop a comprehensive supplement database with information on ingredients,
+      benefits, and potential interactions
+  create_meditation_coach:
+    agent: false
+    description: Build a system to guide users through meditations and provide feedback
+      on their progress
+    name: create_meditation_coach
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Design a meditation coach with guided sessions, mood tracking, and personalized
+      recommendations
+  define_life_os_core_objectives:
+    agent: false
+    description: Define the primary goals for the LIFE OS platform
+    name: define_life_os_core_objectives
+    nodes_depended_on: []
+    nodes_dependent_on: []
+    prompt: List 5 high-level objectives for the LIFE OS project
+  design_physical_activity_tracker:
+    agent: false
+    description: Develop a system to track user physical activity and provide feedback
+    name: design_physical_activity_tracker
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Create a physical activity tracker with GPS tracking, heart rate monitoring,
+      and step counting
+  develop_community_forum:
+    agent: false
+    description: Develop a forum where users can connect with others who share similar
+      interests and goals
+    name: develop_community_forum
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Create a community forum for users to share experiences, ask questions,
+      and connect with others
+  develop_nutrition_planner:
+    agent: false
+    description: Build a planner that recommends meals based on dietary needs and
+      preferences
+    name: develop_nutrition_planner
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Create a personalized nutrition planning tool with meal planning and grocery
+      shopping integration
+  establish_sleep_tracker:
+    agent: false
+    description: Create a system to track user sleep patterns and analyze the data
+    name: establish_sleep_tracker
+    nodes_depended_on:
+    - define_life_os_core_objectives
+    nodes_dependent_on: []
+    prompt: Design a sleep tracking system with integrated data analytics
+  generate_summary_reports:
+    agent: false
+    description: Develop a system to generate summary reports based on user data
+    name: generate_summary_reports
+    nodes_depended_on:
+    - establish_sleep_tracker
+    - develop_nutrition_planner
+    - build_supplement_database
+    - design_physical_activity_tracker
+    - create_meditation_coach
+    - provide_recommendations
+    nodes_dependent_on: []
+    prompt: Create summary reports of user progress, including sleep, nutrition, supplements,
+      physical activity, and meditation
+  integrate_data_from_all_sources:
+    agent: false
+    description: Merge data from various sources to provide a comprehensive view of
+      user health and wellness
+    name: integrate_data_from_all_sources
+    nodes_depended_on:
+    - establish_sleep_tracker
+    - develop_nutrition_planner
+    - build_supplement_database
+    - design_physical_activity_tracker
+    - create_meditation_coach
+    nodes_dependent_on: []
+    prompt: Integrate data from all previous steps into a centralized platform
+  provide_recommendations:
+    agent: false
+    description: Use integrated data to offer tailored recommendations to users
+    name: provide_recommendations
+    nodes_depended_on:
+    - integrate_data_from_all_sources
+    - develop_nutrition_planner
+    - build_supplement_database
+    nodes_dependent_on: []
+    prompt: Provide personalized recommendations for nutrition, supplements, and physical
+      activity based on integrated user data
